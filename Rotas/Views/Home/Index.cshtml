@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Rotas.Models.Noticia>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+    #categorias {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #808080;
+    }
+
+    .catego {
+        float: left;
+    }
+
+        .catego a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+            .catego a:hover {
+                background-color: #111;
+            }
+</style>
+<h2>Rotas em ASP</h2>
+
+<div>
+    <ul id="categorias">
+        @foreach (string item in ViewBag.Categorias)
+        {
+            <li class="catego">
+                @Html.ActionLink(item, "MostraCategoria", "Home", new { @categoria = item }, null)
+            </li>
+        }
+    </ul>
+</div>
+
+<div>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li>
+                @Html.ActionLink(item.Titulo, "MostraNoticia", "Home", new
+           {
+               @noticiaId = item.NoticiaId,
+               @categoria = item.Categoria.ToLower(),
+               @titulo = item.Titulo.ToLower()
+
+           }, null);
+
+
+                <em>@Html.DisplayFor(modelItem => item.Categoria)</em>
+                <b>@Html.DisplayFor(modelItem => item.Data)</b>
+
+            </li>
+        }
+    </ul>
+
+</div>
+
+<div>
+ <!--   @Html.ActionLink("Noticias", "Index", "Home")-->
+</div>
